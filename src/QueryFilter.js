@@ -75,7 +75,7 @@ const QueryFilter = () => {
                     {inputStage === 'attribute' && (
                         <Select
                             className="flex-1 min-w-[150px] m-1"
-                            placeholder="Select attribute"
+                            placeholder="Select Filter: select options from suggested values,for IN/NOT IN operators press 'ENTER' after selecting options "
                             options={attributes}
                             value={selectedAttribute}
                             onChange={handleAttributeSelect}
