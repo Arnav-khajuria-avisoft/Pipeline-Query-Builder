@@ -48,14 +48,16 @@ const QueryFilter = () => {
         setFilters(filters.filter((_, i) => i !== index));
     };
 
+    // Handler for selecting an attribute
     const handleAttributeSelect = (selected) => {
         setSelectedAttribute(selected);
-        setInputStage('operation');
+        setInputStage('operation'); 
     };
 
+    // Handler for selecting an operation
     const handleOperationSelect = (selected) => {
         setSelectedOperation(selected);
-        setInputStage('value');
+        setInputStage('value'); 
     };
 
     return (
@@ -98,8 +100,7 @@ const QueryFilter = () => {
                             className="p-2 border border-gray-400 rounded-md flex-1 min-w-[150px] m-1"
                             value={value}
                             onChange={(e) => setValue(e.target.value)}
-                            onKeyPress={(e) => {
-                                if (e.key === 'Enter') {
+                            onKeyDown={(e) => {if (e.key === 'Enter') {
                                     addFilter();
                                 }
                             }}

@@ -11,29 +11,32 @@ import ReactFlow, {
   applyNodeChanges,
 } from 'react-flow-renderer';
 
+// Initial empty arrays for nodes and edges
 const initialNodes = [];
 const initialEdges = [];
 
+// Define custom node types to be used in React Flow
 const nodeTypes = {
   sourceNode: SourceNode,
   destinationNode: DestinationNode,
 };
 
 const PipelineBuilder = () => {
+  // State variables to manage nodes, edges, and counts for source and destination nodes
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
   const [sourceCount, setSourceCount] = useState(0);
   const [destinationCount, setDestinationCount] = useState(0);
 
-  const onNodesChange = (changes) => setNodes((nds) => applyNodeChanges(changes, nds));
-  const onEdgesChange = (changes) => setEdges((eds) => applyEdgeChanges(changes, eds));
+  const onNodesChange = (changes) => setNodes((nodes) => applyNodeChanges(changes, nodes));
+  const onEdgesChange = (changes) => setEdges((edges) => applyEdgeChanges(changes, edges));
 
   const onConnect = (params) => {
     const { source, target } = params;
-
     const sourceNode = nodes.find((node) => node.id === source);
     const targetNode = nodes.find((node) => node.id === target);
 
+    // If both source and target nodes exist and source is a sourceNode and target is a destinationNode, add edge
     if (sourceNode && targetNode) {
       if (sourceNode.type === 'sourceNode' && targetNode.type === 'destinationNode') {
         setEdges((eds) => addEdge(params, eds));
@@ -41,8 +44,8 @@ const PipelineBuilder = () => {
     }
   };
 
-  const onEdgeClick = (event, edge) => {
-    setEdges((eds) => eds.filter((e) => e.id !== edge.id));
+  const onEdgeClick = (edge) => {
+    setEdges((edges) => edges.filter((e) => e.id !== edge.id));
   };
 
   const addNode = (type) => {
@@ -62,7 +65,8 @@ const PipelineBuilder = () => {
       type: type === 'Source' ? 'sourceNode' : 'destinationNode',
     };
 
-    setNodes((nds) => [...nds, newNode]);
+
+    setNodes((nodes) => [...nodes, newNode]);
   };
 
   return (
@@ -71,7 +75,7 @@ const PipelineBuilder = () => {
         <div className="flex h-full">
           <div className='flex flex-col space-y-2 m-2'>
             <button
-              className="border-black p-4 rounded-md border hover:bg-gray-300 "
+              className="border-black p-4 rounded-md border hover:bg-gray-300"
               onClick={() => addNode('Source')}>Add Source</button>
             <button
               className="border-black p-4 rounded-md border hover:bg-gray-300"
@@ -85,7 +89,6 @@ const PipelineBuilder = () => {
               onEdgesChange={onEdgesChange}
               onConnect={onConnect}
               onEdgeClick={onEdgeClick}
-              deleteKeyCode={46}
               nodeTypes={nodeTypes}
             >
               <Controls />
