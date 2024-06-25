@@ -13,13 +13,14 @@ const attributes = [
 ];
 
 const operations = [
-    { value: '=', label: '=' },
-    { value: '!=', label: '!=' },
-    { value: '>', label: '>' },
-    { value: '<', label: '<' },
-    { value: '>=', label: '>=' },
-    { value: '<=', label: '<=' },
-    { value: 'contains', label: 'contains' }
+    { value: '/', label: ' body ' },
+    { value: '=', label: ' body =' },
+    { value: '!=', label: 'body !=' },
+    { value: '>', label: 'body IN' },
+    { value: '<', label: 'body NOT_IN' },
+    { value: '>=', label: 'body LIKE' },
+    { value: '<=', label: 'body NOT_LIKE' },
+    { value: 'contains', label: 'body CONTAINS' }
 ];
 
 const QueryFilter = () => {
